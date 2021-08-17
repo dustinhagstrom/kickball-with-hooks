@@ -1,48 +1,157 @@
 import React from "react";
+import { toast, ToastContainer } from "react-toastify";
+
+import Spinner from "../Spinner/Spinner";
+import CheckAuthCookie from "../hooks/checkAuthCookie";
+import userInputFields from "../hooks/userInputFields";
+import useFetchApi from "../hooks/useFetchApi";
 
 function Auth(props) {
   let isLoginRoute = props.match.path === "/login"; //if route path is login
   let buttonName = isLoginRoute ? "Login" : "Sign up";
-  let apiUrl = isLoginRoute ? "/player/login" : "/player/signup";
+  let apiURL = isLoginRoute ? "/player/login" : "/player/signup";
+
+  const { checkIfCookieExists } = CheckAuthCookie();
+
+  const [
+    { isLoading, response, error, setError, setSuccessMessageValue },
+    handleAPICallSubmit,
+    successMessageValue,
+  ] = useFetchApi(apiURL);
+
+  const [
+    firstName,
+    firstNameOnChange,
+    isFirstNameError,
+    firstNameErrorMessage,
+    firstNameIsDisabled,
+    clearFirstNameInput,
+  ] = userInputFields("firstName");
+  const [
+    lastName,
+    lastNameOnChange,
+    isLastNameError,
+    lastNameErrorMessage,
+    lastNameIsDisabled,
+    clearLastNameInput,
+  ] = userInputFields("lastName");
+  const [
+    email,
+    emailOnChange,
+    isEmailError,
+    emailErrorMessage,
+    emailIsDisabled,
+    clearEmailInput,
+  ] = userInputFields("email");
+  const [
+    username,
+    usernameOnChange,
+    isUsernameError,
+    usernameErrorMessage,
+    usernameIsDisabled,
+    clearUsernameInput,
+  ] = userInputFields("username");
+  const [
+    password,
+    passwordOnChange,
+    isPasswordError,
+    passwordErrorMessage,
+    passwordIsDisabled,
+    clearPasswordInput,
+  ] = userInputFields("password");
+  const [
+    confirmPassword,
+    confirmPasswordOnChange,
+    isConfirmPasswordError,
+    confirmPasswordErrorMessage,
+    confirmPasswordIsDisabled,
+    clearConfirmPasswordInput,
+  ] = userInputFields("confirmPassword");
+
+  function handleOnSubmit(e) {
+    e.preventDefault();
+
+    const user = isLoginRoute
+      ? { email, password }
+      : { firstName, lastName, email, username, password, confirmPassword };
+
+    handleAPICallSubmit({
+      method: "post",
+      data: {
+        ...user,
+      },
+    });
+  }
+
+  function successMessage() {
+    toast("🦄 Wow so easy!", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    return (
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <>
+        <Spinner />
+      </>
+    );
+  }
 
   return (
     <div>
       <div>Sign up for kickball</div>
       <div>
-        <form
-        // onSubmit={}
-        >
+        <form onSubmit={handleOnSubmit}>
           <div>
             <div>
               <label htmlFor="firstName">First Name</label>
               <input
                 type="text"
-                // id="firstName"
+                id="firstName"
                 name="firstName"
                 placeholder="First name"
-                // value={}
-                // onChange={}
+                value={firstName}
+                onChange={firstNameOnChange}
                 // onBlur={}
                 autoFocus
               />
               <div className="error-message">
-                {/* {firstNameError && firstNameError} */}
+                {isFirstNameError && firstNameErrorMessage}
               </div>
             </div>
             <div>
               <label htmlFor="lastName">Last Name</label>
               <input
                 type="text"
-                // id="lastName"
+                id="lastName"
                 name="lastName"
                 placeholder="Last name"
-                // value={}
-                // onChange={}
+                value={lastName}
+                onChange={lastNameOnChange}
                 // onBlur={}
                 // onFocus={}
               />
               <div className="error-message">
-                {/* {lastNameError && lastNameError} */}
+                {isLastNameError && lastNameErrorMessage}
               </div>
             </div>
           </div>
@@ -54,13 +163,13 @@ function Auth(props) {
                 id="email"
                 name="email"
                 placeholder="Email"
-                // value={}
-                // onChange={}
+                value={email}
+                onChange={emailOnChange}
                 // onBlur={}
                 // onFocus={}
               />
               <div className="error-message">
-                {/* {emailError && emailError} */}
+                {isEmailError && emailErrorMessage}
               </div>
             </div>
           </div>
@@ -72,13 +181,13 @@ function Auth(props) {
                 id="username"
                 name="username"
                 placeholder="Username"
-                // value={}
-                // onChange={}
+                value={username}
+                onChange={usernameOnChange}
                 // onBlur={}
                 // onFocus={}
               />
               <div className="error-message">
-                {/* {usernameError && usernameError} */}
+                {isUsernameError && usernameErrorMessage}
               </div>
             </div>
           </div>
@@ -90,13 +199,13 @@ function Auth(props) {
                 id="password"
                 name="password"
                 placeholder="Password"
-                // value={}
-                // onChange={}
+                value={password}
+                onChange={passwordOnChange}
                 // onBlur={}
                 // onFocus={}
               />
               <div className="error-message">
-                {/* {passwordError && passwordError} */}
+                {isPasswordError && passwordErrorMessage}
               </div>
             </div>
           </div>
@@ -108,13 +217,13 @@ function Auth(props) {
                 id="confirmPassword"
                 name="confirmPassword"
                 placeholder="Confirm Password"
-                // value={}
-                // onChange={}
+                value={confirmPassword}
+                onChange={confirmPasswordOnChange}
                 // onBlur={}
                 // onFocus={}
               />
               <div className="error-message">
-                {/* {confirmPasswordError && confirmPasswordError} */}
+                {isConfirmPasswordError && confirmPasswordErrorMessage}
               </div>
             </div>
           </div>

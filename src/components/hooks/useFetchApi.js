@@ -18,15 +18,15 @@ function useFetchApi(url) {
   //can do a success toast if I want to.
   const { dispatch } = useContext(AuthContext);
 
-  function handleAPICallSubmit(options = {}) {
+  function handleAPICallSubmit(callOptions = {}) {
     //options = {} is a default parameter that states if an options is not passed then the default value is empty obj
-    setCallOptions(options);
+    setCallOptions(callOptions);
     setIsLoading(true);
   }
 
   async function handleAPIFetchCall() {
-    const requestOptionObj = {
-      ...options,
+    const requestOptionsObj = {
+      ...callOptions,
       withCredentials: true, //this is a boolean that says we should allow credentials cross-site. this is ignored if the req origin is same as res origin.
       credentials: "include", //this allows sending cookies cross-origin. "Request.credentials"
       ...{
@@ -37,7 +37,7 @@ function useFetchApi(url) {
     };
 
     try {
-      let response = await axios(basURL + url, requestOptionsObj);
+      let response = await axios(baseURL + url, requestOptionsObj);
       console.log(response);
 
       // if (response.data.message === "user created") {
@@ -48,14 +48,14 @@ function useFetchApi(url) {
       //     dispatch({
       //         type: "LOGIN",
       //         user: {
-      //             email: response.data.player.email,
-      //             username: response.data.player.username,
+      //             email: response.data.user.email,
+      //             username: response.data.user.username,
       //         },
       //     });
       // }
     } catch (e) {
       console.log(e);
-      setError(...something);
+      //   setError(...something);
       setIsLoading(true);
     }
   }
@@ -66,10 +66,10 @@ function useFetchApi(url) {
     } //this prevents api call on initial mount
 
     handleAPIFetchCall();
-  }, [isLoading, url, options, baseURL]); //baseURL currently static value.
+  }, [isLoading, url, callOptions, baseURL]); //baseURL currently static value.
 
   return [
-    { isLoading, response, error, setError, setSuccessMessageValue },
+    { isLoading, error, setError, setSuccessMessageValue },
     handleAPICallSubmit,
     successMessageValue,
   ];
