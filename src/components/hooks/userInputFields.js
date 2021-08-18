@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { isAlpha, isAlphanumeric, isEmail, isStrongPassword } from "validator";
 import useFetchApi from "./useFetchApi";
 
@@ -31,7 +31,6 @@ function UserInputFields(inputType) {
       setIsDisabled(true);
     } else if (inputType === "firstName" || inputType === "lastName") {
       if (!isAlpha(value)) {
-        console.log("hey bud");
         setIsError(true);
         setErrorMessage(`${inputType} can only have letters!`);
         setIsDisabled(true);

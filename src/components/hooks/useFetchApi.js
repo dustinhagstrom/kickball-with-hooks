@@ -13,6 +13,7 @@ function useFetchApi(url) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [callOptions, setCallOptions] = useState({});
+  const [isMessageOpen, setIsMessageOpen] = useState(false); //controls opening and closing of toast container
   const [successMessageValue, setSuccessMessageValue] = useState(null);
 
   //can do a success toast if I want to.
@@ -40,19 +41,19 @@ function useFetchApi(url) {
       let response = await axios(baseURL + url, requestOptionsObj);
       console.log(response);
 
-      // if (response.data.message === "user created") {
-      //     setIsLoading(false);
-      //     setSuccessMessage(response.data.message);
-      // } else {
-      //     setIsLoading(false);
-      //     dispatch({
-      //         type: "LOGIN",
-      //         user: {
-      //             email: response.data.user.email,
-      //             username: response.data.user.username,
-      //         },
-      //     });
-      // }
+      if (response.data.message === "user created") {
+        setIsLoading(false);
+        setSuccessMessageValue(response.data.message);
+      } else {
+        setIsLoading(false);
+        dispatch({
+          type: "LOGIN",
+          user: {
+            email: response.data.user.email,
+            username: response.data.user.username,
+          },
+        });
+      }
     } catch (e) {
       console.log(e);
       //   setError(...something);

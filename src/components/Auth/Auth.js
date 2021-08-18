@@ -84,7 +84,7 @@ function Auth(props) {
   }
 
   function successMessage() {
-    toast("🦄 Wow so easy!", {
+    toast.success("🦄 Wow so easy!", {
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -93,19 +93,19 @@ function Auth(props) {
       draggable: true,
       progress: undefined,
     });
-    return (
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-    );
+    // return (
+    //   <ToastContainer
+    //     position="top-center"
+    //     autoClose={5000}
+    //     hideProgressBar={false}
+    //     newestOnTop={false}
+    //     closeOnClick
+    //     rtl={false}
+    //     pauseOnFocusLoss
+    //     draggable
+    //     pauseOnHover
+    //   />
+    // );
   }
 
   if (isLoading) {
@@ -129,6 +129,18 @@ function Auth(props) {
         <div>Sign up for kickball</div>
       )}
       <div>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+
         {successMessageValue && successMessage()}
         <form onSubmit={handleOnSubmit}>
           <div>
