@@ -116,44 +116,58 @@ function Auth(props) {
     );
   }
 
+  //can change this to protected route in future if desired
+  if (checkIfCookieExists()) {
+    props.history.push("/profile");
+  }
+
   return (
     <div>
-      <div>Sign up for kickball</div>
+      {isLoginRoute ? (
+        <div>Sign in for kickball</div>
+      ) : (
+        <div>Sign up for kickball</div>
+      )}
       <div>
+        {successMessageValue && successMessage()}
         <form onSubmit={handleOnSubmit}>
           <div>
-            <div>
-              <label htmlFor="firstName">First Name</label>
-              <input
-                type="text"
-                id="firstName"
-                name="firstName"
-                placeholder="First name"
-                value={firstName}
-                onChange={firstNameOnChange}
-                // onBlur={}
-                autoFocus
-              />
-              <div className="error-message">
-                {isFirstNameError && firstNameErrorMessage}
-              </div>
-            </div>
-            <div>
-              <label htmlFor="lastName">Last Name</label>
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                placeholder="Last name"
-                value={lastName}
-                onChange={lastNameOnChange}
-                // onBlur={}
-                // onFocus={}
-              />
-              <div className="error-message">
-                {isLastNameError && lastNameErrorMessage}
-              </div>
-            </div>
+            {!isLoginRoute && (
+              <>
+                <div>
+                  <label htmlFor="firstName">First Name</label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    placeholder="First name"
+                    value={firstName}
+                    onChange={firstNameOnChange}
+                    // onBlur={}
+                    autoFocus
+                  />
+                  <div className="error-message">
+                    {isFirstNameError && firstNameErrorMessage}
+                  </div>
+                </div>
+                <div>
+                  <label htmlFor="lastName">Last Name</label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    placeholder="Last name"
+                    value={lastName}
+                    onChange={lastNameOnChange}
+                    // onBlur={}
+                    // onFocus={}
+                  />
+                  <div className="error-message">
+                    {isLastNameError && lastNameErrorMessage}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
           <div>
             <div>
@@ -174,22 +188,24 @@ function Auth(props) {
             </div>
           </div>
           <div>
-            <div>
-              <label>Username</label>
-              <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder="Username"
-                value={username}
-                onChange={usernameOnChange}
-                // onBlur={}
-                // onFocus={}
-              />
-              <div className="error-message">
-                {isUsernameError && usernameErrorMessage}
+            {!isLoginRoute && (
+              <div>
+                <label>Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  placeholder="Username"
+                  value={username}
+                  onChange={usernameOnChange}
+                  // onBlur={}
+                  // onFocus={}
+                />
+                <div className="error-message">
+                  {isUsernameError && usernameErrorMessage}
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <div>
             <div>
@@ -210,29 +226,40 @@ function Auth(props) {
             </div>
           </div>
           <div>
-            <div>
-              <label>Confirm Password</label>
-              <input
-                type="text"
-                id="confirmPassword"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChange={confirmPasswordOnChange}
-                // onBlur={}
-                // onFocus={}
-              />
-              <div className="error-message">
-                {isConfirmPasswordError && confirmPasswordErrorMessage}
+            {!isLoginRoute && (
+              <div>
+                <label>Confirm Password</label>
+                <input
+                  type="text"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={confirmPasswordOnChange}
+                  // onBlur={}
+                  // onFocus={}
+                />
+                <div className="error-message">
+                  {isConfirmPasswordError && confirmPasswordErrorMessage}
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <div>
             <button
               type="submit"
-              // disabled={}
+              disabled={
+                isLoginRoute
+                  ? emailIsDisabled || passwordIsDisabled
+                  : emailIsDisabled ||
+                    passwordIsDisabled ||
+                    confirmPasswordIsDisabled ||
+                    usernameIsDisabled ||
+                    firstNameIsDisabled ||
+                    lastNameIsDisabled
+              }
             >
-              Sign me Up!
+              {buttonName}
             </button>
           </div>
         </form>
