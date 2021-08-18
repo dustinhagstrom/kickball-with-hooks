@@ -1,5 +1,4 @@
 import React from "react";
-import { toast, ToastContainer } from "react-toastify";
 
 import Spinner from "../Spinner/Spinner";
 import CheckAuthCookie from "../hooks/checkAuthCookie";
@@ -71,41 +70,16 @@ function Auth(props) {
   function handleOnSubmit(e) {
     e.preventDefault();
 
-    const user = isLoginRoute
+    const userInput = isLoginRoute
       ? { email, password }
       : { firstName, lastName, email, username, password, confirmPassword };
 
     handleAPICallSubmit({
       method: "post",
       data: {
-        ...user,
+        ...userInput,
       },
     });
-  }
-
-  function successMessage() {
-    toast.success("🦄 Wow so easy!", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-    // return (
-    //   <ToastContainer
-    //     position="top-center"
-    //     autoClose={5000}
-    //     hideProgressBar={false}
-    //     newestOnTop={false}
-    //     closeOnClick
-    //     rtl={false}
-    //     pauseOnFocusLoss
-    //     draggable
-    //     pauseOnHover
-    //   />
-    // );
   }
 
   if (isLoading) {
@@ -128,154 +102,140 @@ function Auth(props) {
       ) : (
         <div>Sign up for kickball</div>
       )}
-      <div>
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-
-        {successMessageValue && successMessage()}
-        <form onSubmit={handleOnSubmit}>
-          <div>
-            {!isLoginRoute && (
-              <>
-                <div>
-                  <label htmlFor="firstName">First Name</label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    placeholder="First name"
-                    value={firstName}
-                    onChange={firstNameOnChange}
-                    // onBlur={}
-                    autoFocus
-                  />
-                  <div className="error-message">
-                    {isFirstNameError && firstNameErrorMessage}
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="lastName">Last Name</label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    placeholder="Last name"
-                    value={lastName}
-                    onChange={lastNameOnChange}
-                    // onBlur={}
-                    // onFocus={}
-                  />
-                  <div className="error-message">
-                    {isLastNameError && lastNameErrorMessage}
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-          <div>
-            <div>
-              <label>Email</label>
-              <input
-                type="text"
-                id="email"
-                name="email"
-                placeholder="Email"
-                value={email}
-                onChange={emailOnChange}
-                // onBlur={}
-                // onFocus={}
-              />
-              <div className="error-message">
-                {isEmailError && emailErrorMessage}
-              </div>
-            </div>
-          </div>
-          <div>
-            {!isLoginRoute && (
+      {/* {successMessageValue && successMessage()} */}
+      <form onSubmit={handleOnSubmit}>
+        <div>
+          {!isLoginRoute && (
+            <>
               <div>
-                <label>Username</label>
+                <label htmlFor="firstName">First Name</label>
                 <input
                   type="text"
-                  id="username"
-                  name="username"
-                  placeholder="Username"
-                  value={username}
-                  onChange={usernameOnChange}
+                  id="firstName"
+                  name="firstName"
+                  placeholder="First name"
+                  value={firstName}
+                  onChange={firstNameOnChange}
+                  // onBlur={}
+                  autoFocus
+                />
+                <div className="error-message">
+                  {isFirstNameError && firstNameErrorMessage}
+                </div>
+              </div>
+              <div>
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  placeholder="Last name"
+                  value={lastName}
+                  onChange={lastNameOnChange}
                   // onBlur={}
                   // onFocus={}
                 />
                 <div className="error-message">
-                  {isUsernameError && usernameErrorMessage}
+                  {isLastNameError && lastNameErrorMessage}
                 </div>
               </div>
-            )}
-          </div>
+            </>
+          )}
+        </div>
+        <div>
           <div>
+            <label>Email</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              placeholder="Email"
+              value={email}
+              onChange={emailOnChange}
+              // onBlur={}
+              // onFocus={}
+            />
+            <div className="error-message">
+              {isEmailError && emailErrorMessage}
+            </div>
+          </div>
+        </div>
+        <div>
+          {!isLoginRoute && (
             <div>
-              <label>Password</label>
+              <label>Username</label>
               <input
                 type="text"
-                id="password"
-                name="password"
-                placeholder="Password"
-                value={password}
-                onChange={passwordOnChange}
+                id="username"
+                name="username"
+                placeholder="Username"
+                value={username}
+                onChange={usernameOnChange}
                 // onBlur={}
                 // onFocus={}
               />
               <div className="error-message">
-                {isPasswordError && passwordErrorMessage}
+                {isUsernameError && usernameErrorMessage}
               </div>
             </div>
-          </div>
+          )}
+        </div>
+        <div>
           <div>
-            {!isLoginRoute && (
-              <div>
-                <label>Confirm Password</label>
-                <input
-                  type="text"
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  placeholder="Confirm Password"
-                  value={confirmPassword}
-                  onChange={confirmPasswordOnChange}
-                  // onBlur={}
-                  // onFocus={}
-                />
-                <div className="error-message">
-                  {isConfirmPasswordError && confirmPasswordErrorMessage}
-                </div>
+            <label>Password</label>
+            <input
+              type="text"
+              id="password"
+              name="password"
+              placeholder="Password"
+              value={password}
+              onChange={passwordOnChange}
+              // onBlur={}
+              // onFocus={}
+            />
+            <div className="error-message">
+              {isPasswordError && passwordErrorMessage}
+            </div>
+          </div>
+        </div>
+        <div>
+          {!isLoginRoute && (
+            <div>
+              <label>Confirm Password</label>
+              <input
+                type="text"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={confirmPasswordOnChange}
+                // onBlur={}
+                // onFocus={}
+              />
+              <div className="error-message">
+                {isConfirmPasswordError && confirmPasswordErrorMessage}
               </div>
-            )}
-          </div>
-          <div>
-            <button
-              type="submit"
-              disabled={
-                isLoginRoute
-                  ? emailIsDisabled || passwordIsDisabled
-                  : emailIsDisabled ||
-                    passwordIsDisabled ||
-                    confirmPasswordIsDisabled ||
-                    usernameIsDisabled ||
-                    firstNameIsDisabled ||
-                    lastNameIsDisabled
-              }
-            >
-              {buttonName}
-            </button>
-          </div>
-        </form>
-      </div>
+            </div>
+          )}
+        </div>
+        <div>
+          <button
+            type="submit"
+            disabled={
+              isLoginRoute
+                ? emailIsDisabled || passwordIsDisabled
+                : emailIsDisabled ||
+                  passwordIsDisabled ||
+                  confirmPasswordIsDisabled ||
+                  usernameIsDisabled ||
+                  firstNameIsDisabled ||
+                  lastNameIsDisabled
+            }
+          >
+            {buttonName}
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

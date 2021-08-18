@@ -13,7 +13,6 @@ function useFetchApi(url) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [callOptions, setCallOptions] = useState({});
-  const [isMessageOpen, setIsMessageOpen] = useState(false); //controls opening and closing of toast container
   const [successMessageValue, setSuccessMessageValue] = useState(null);
 
   //can do a success toast if I want to.
@@ -27,7 +26,7 @@ function useFetchApi(url) {
 
   async function handleAPIFetchCall() {
     const requestOptionsObj = {
-      ...callOptions,
+      ...callOptions, //this is signup or login data
       withCredentials: true, //this is a boolean that says we should allow credentials cross-site. this is ignored if the req origin is same as res origin.
       credentials: "include", //this allows sending cookies cross-origin. "Request.credentials"
       ...{
@@ -39,7 +38,11 @@ function useFetchApi(url) {
 
     try {
       let response = await axios(baseURL + url, requestOptionsObj);
-      console.log(response);
+      console.log(
+        response.data.player.email,
+        response.data.player.username,
+        response.data.message
+      );
 
       if (response.data.message === "user created") {
         setIsLoading(false);
@@ -49,14 +52,14 @@ function useFetchApi(url) {
         dispatch({
           type: "LOGIN",
           user: {
-            email: response.data.user.email,
-            username: response.data.user.username,
+            email: response.data.player.email,
+            username: response.data.player.username,
           },
         });
       }
     } catch (e) {
       console.log(e);
-      //   setError(...something);
+      setError(e);
       setIsLoading(true);
     }
   }

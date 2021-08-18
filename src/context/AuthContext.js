@@ -15,6 +15,7 @@ function reducer(state, action) {
       return {
         user: {
           email: action.user.email,
+          username: action.user.username,
           isAuth: true,
         },
       };

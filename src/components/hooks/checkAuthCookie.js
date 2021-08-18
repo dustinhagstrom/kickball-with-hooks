@@ -28,6 +28,7 @@ function CheckAuthCookie() {
         type: "LOGIN",
         user: {
           email: jwtDecodedCookie.email,
+          username: jwtDecodedCookie.username,
         },
       });
     }
