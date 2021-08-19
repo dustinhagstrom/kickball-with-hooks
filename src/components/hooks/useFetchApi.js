@@ -13,6 +13,7 @@ function useFetchApi(url) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [callOptions, setCallOptions] = useState({});
+  const [response, setResponse] = useState(null);
   const [successMessageValue, setSuccessMessageValue] = useState(null);
 
   //can do a success toast if I want to.
@@ -38,15 +39,12 @@ function useFetchApi(url) {
 
     try {
       let response = await axios(baseURL + url, requestOptionsObj);
-      console.log(
-        response.data.player.email,
-        response.data.player.username,
-        response.data.message
-      );
+      console.log(response.data.message);
 
       if (response.data.message === "user created") {
         setIsLoading(false);
         setSuccessMessageValue(response.data.message);
+        setResponse(response.data.message);
       } else {
         setIsLoading(false);
         dispatch({
@@ -60,7 +58,7 @@ function useFetchApi(url) {
     } catch (e) {
       console.log(e);
       setError(e);
-      setIsLoading(true);
+      setIsLoading(false);
     }
   }
 
@@ -73,7 +71,14 @@ function useFetchApi(url) {
   }, [isLoading, url, callOptions, baseURL]); //baseURL currently static value.
 
   return [
-    { isLoading, error, setError, setSuccessMessageValue },
+    {
+      isLoading,
+      error,
+      setError,
+      response,
+      setResponse,
+      setSuccessMessageValue,
+    },
     handleAPICallSubmit,
     successMessageValue,
   ];

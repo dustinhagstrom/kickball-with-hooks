@@ -4,6 +4,7 @@ import Spinner from "../Spinner/Spinner";
 import CheckAuthCookie from "../hooks/checkAuthCookie";
 import userInputFields from "../hooks/userInputFields";
 import useFetchApi from "../hooks/useFetchApi";
+import { Redirect } from "react-router-dom";
 
 function Auth(props) {
   let isLoginRoute = props.match.path === "/login"; //if route path is login
@@ -13,7 +14,14 @@ function Auth(props) {
   const { checkIfCookieExists } = CheckAuthCookie();
 
   const [
-    { isLoading, response, error, setError, setSuccessMessageValue },
+    {
+      isLoading,
+      response,
+      setResponse,
+      error,
+      setError,
+      setSuccessMessageValue,
+    },
     handleAPICallSubmit,
     successMessageValue,
   ] = useFetchApi(apiURL);
@@ -90,10 +98,41 @@ function Auth(props) {
     );
   }
 
+  if (response === "user created") {
+    //clearing inputs not really necessary if I push route
+    clearEmailInput();
+    // clearUsernameInput();
+    clearPasswordInput();
+    // clearFirstNameInput();
+    // clearLastNameInput();
+    // clearConfirmPasswordInput();
+    pushToLogin();
+  }
+
+  async function pushToLogin() {
+    //must use async to prevent .push from trying to change component during render.
+    try {
+      await setResponse(null);
+      props.history.push("/login");
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   //can change this to protected route in future if desired
   if (checkIfCookieExists()) {
-    props.history.push("/profile");
+    console.log("here's a cookie");
+    return <Redirect to="/profile" />;
   }
+
+  //   async function pushToProfile() {
+  //     try {
+  //       //   await setResponse(null);
+  //       props.history.push("/profile");
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   }
 
   return (
     <div>
@@ -116,7 +155,6 @@ function Auth(props) {
                   placeholder="First name"
                   value={firstName}
                   onChange={firstNameOnChange}
-                  // onBlur={}
                   autoFocus
                 />
                 <div className="error-message">
@@ -132,8 +170,6 @@ function Auth(props) {
                   placeholder="Last name"
                   value={lastName}
                   onChange={lastNameOnChange}
-                  // onBlur={}
-                  // onFocus={}
                 />
                 <div className="error-message">
                   {isLastNameError && lastNameErrorMessage}
@@ -152,8 +188,6 @@ function Auth(props) {
               placeholder="Email"
               value={email}
               onChange={emailOnChange}
-              // onBlur={}
-              // onFocus={}
             />
             <div className="error-message">
               {isEmailError && emailErrorMessage}
@@ -171,8 +205,6 @@ function Auth(props) {
                 placeholder="Username"
                 value={username}
                 onChange={usernameOnChange}
-                // onBlur={}
-                // onFocus={}
               />
               <div className="error-message">
                 {isUsernameError && usernameErrorMessage}
@@ -190,8 +222,6 @@ function Auth(props) {
               placeholder="Password"
               value={password}
               onChange={passwordOnChange}
-              // onBlur={}
-              // onFocus={}
             />
             <div className="error-message">
               {isPasswordError && passwordErrorMessage}
@@ -209,8 +239,6 @@ function Auth(props) {
                 placeholder="Confirm Password"
                 value={confirmPassword}
                 onChange={confirmPasswordOnChange}
-                // onBlur={}
-                // onFocus={}
               />
               <div className="error-message">
                 {isConfirmPasswordError && confirmPasswordErrorMessage}

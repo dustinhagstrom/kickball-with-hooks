@@ -9,8 +9,6 @@ function UserInputFields(inputType) {
 
   const [isDisabled, setIsDisabled] = useState(true);
 
-  const [{ isLoading }] = useFetchApi();
-
   function onChange(e) {
     let value = e.target.value;
     setValue(value);
@@ -23,9 +21,7 @@ function UserInputFields(inputType) {
   }
 
   function checkInput(value) {
-    console.log(inputType);
     if (value.length === 0) {
-      console.log(value);
       setIsError(true);
       setErrorMessage(`${inputType} is required`);
       setIsDisabled(true);

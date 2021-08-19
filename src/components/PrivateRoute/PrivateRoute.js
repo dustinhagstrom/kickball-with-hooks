@@ -6,13 +6,15 @@ import CheckAuthCookie from "../hooks/checkAuthCookie";
 
 function PrivateRoute({ component: Component, ...rest }) {
   const { logUserIn } = CheckAuthCookie;
-  const { state: user } = useContext(AuthContext);
+  const {
+    state: { user },
+  } = useContext(AuthContext);
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        user.user ? <Component {...props} /> : <Redirect to="/login" />
+        user ? <Component {...props} /> : <Redirect to="/login" />
       }
     />
   );

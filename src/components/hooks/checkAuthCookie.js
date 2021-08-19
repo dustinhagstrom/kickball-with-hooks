@@ -22,7 +22,6 @@ function CheckAuthCookie() {
     if (doesCookieExist) {
       const cookie = Cookies.get("jwt-cookie"); //read the cookie named "jwt-cookie" and assign const name
       const jwtDecodedCookie = jwtDecode(cookie); //decode the cookie
-
       //the dispatch here makes an action obj
       dispatch({
         type: "LOGIN",

@@ -2,13 +2,12 @@ import React, { useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Cookies from "js-cookie";
 import { withRouter } from "react-router-dom";
-import { AuthContext, AuthCookie } from "../../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import checkAuthCookie from "../hooks/checkAuthCookie";
 import axios from "axios";
 
 function Nav(props) {
   const { logUserIn } = checkAuthCookie();
-  console.log(props);
 
   useEffect(() => {
     //must use a ue to set user info to state. 1st render user = null;
@@ -17,7 +16,7 @@ function Nav(props) {
   }, []);
 
   const {
-    state: { user }, //gives us access to user state and dispatch func;
+    state: { user },
     dispatch,
   } = useContext(AuthContext);
 
@@ -47,8 +46,6 @@ function Nav(props) {
       console.log(e);
     }
   }
-
-  console.log(user);
 
   return (
     <nav className="Nav-bar">
