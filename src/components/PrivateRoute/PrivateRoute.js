@@ -5,16 +5,17 @@ import { AuthContext } from "../../context/AuthContext";
 import CheckAuthCookie from "../hooks/checkAuthCookie";
 
 function PrivateRoute({ component: Component, ...rest }) {
-  const { logUserIn } = CheckAuthCookie;
-  const {
-    state: { user },
-  } = useContext(AuthContext);
+  const { logUserIn, checkIfCookieExists } = CheckAuthCookie();
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        user ? <Component {...props} /> : <Redirect to="/login" />
+        checkIfCookieExists() ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/login" />
+        )
       }
     />
   );
