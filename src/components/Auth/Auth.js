@@ -125,15 +125,6 @@ function Auth(props) {
     return <Redirect to="/profile" />;
   }
 
-  //   async function pushToProfile() {
-  //     try {
-  //       //   await setResponse(null);
-  //       props.history.push("/profile");
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   }
-
   return (
     <div>
       {isLoginRoute ? (
