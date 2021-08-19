@@ -20,11 +20,11 @@ function TeamPage() {
       headers: {
         authorization: `Bearer ${cookie}`,
       },
-    }).then(function (response) {
-      setTeamPicsArray(response.data.payload[1]); //pics with all data from schema
-      setTeamPlayersArray(response.data.payload[0]); //players with all data from schema
-      setTeamId(response.data.payload[0][0].team[0]); //team extracted from player schema
-      setTeamName(response.data.payload[2]);
+    }).then(function (res) {
+      setTeamPicsArray(res.data.payload[1]); //pics with all data from schema
+      setTeamPlayersArray(res.data.payload[0]); //players with all data from schema
+      setTeamId(res.data.payload[0][0].team[0]); //team extracted from player schema
+      setTeamName(res.data.payload[2]);
     });
   }
 
@@ -46,7 +46,7 @@ function TeamPage() {
       </div>
       <div>
         <div>
-          <div>insert team name here</div>
+          <div>{teamName}</div>
           <div>
             <div>
               {teamPicsArray &&
