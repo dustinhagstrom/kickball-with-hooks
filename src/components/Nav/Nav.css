@@ -1,0 +1,30 @@
+.Nav-bar {
+    background: #4A148C;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+
+.Nav-bar a {
+    color: #4ce4e4;
+    text-decoration: none;
+}
+
+.Nav-bar__container {
+    width: 20%;
+}
+
+.Nav-bar__items {
+    display: flex;
+    list-style: none;
+    justify-content: space-between;
+    padding-left: 0;
+}
+
+.Nav-bar__items a:hover {
+    color: white;
+}
+
+.selected {
+    text-decoration: #4ce4e4 underline;
+}

@@ -7,7 +7,7 @@ import { AuthContext } from "../../context/AuthContext";
 function CheckAuthCookie() {
   const { dispatch } = useContext(AuthContext);
   function checkIfCookieExists() {
-    const cookie = Cookies.get("jwt-cookie"); //read the cookie named "jwt-cookie" and assign const name
+    const cookie = Cookies.get("jwt-cookie"); //grab the cookie named "jwt-cookie"
 
     //if there is a cookie then return true.
     if (cookie) {
@@ -23,11 +23,14 @@ function CheckAuthCookie() {
       const cookie = Cookies.get("jwt-cookie"); //read the cookie named "jwt-cookie" and assign const name
       const jwtDecodedCookie = jwtDecode(cookie); //decode the cookie
       //the dispatch here makes an action obj
+      console.log(jwtDecodedCookie.isTeamCaptain);
       dispatch({
         type: "LOGIN",
         user: {
           email: jwtDecodedCookie.email,
           username: jwtDecodedCookie.username,
+          isTeamCaptain: jwtDecodedCookie.isTeamCaptain,
+          isOnATeam: jwtDecodedCookie.isOnATeam,
         },
       });
     }

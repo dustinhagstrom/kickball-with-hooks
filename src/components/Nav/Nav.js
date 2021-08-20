@@ -6,6 +6,8 @@ import { AuthContext } from "../../context/AuthContext";
 import checkAuthCookie from "../hooks/checkAuthCookie";
 import axios from "axios";
 
+import "./Nav.css";
+
 function Nav(props) {
   const { logUserIn } = checkAuthCookie();
 
@@ -49,28 +51,32 @@ function Nav(props) {
 
   return (
     <nav className="Nav-bar">
-      <div>
-        <h1>
-          <Link to="/">KickBallers™</Link>
-        </h1>
-      </div>
-      <div>
-        <ul>
-          <li>
+      <h1 className="Nav-bar__brand">
+        <Link to="/">KickBallers™</Link>
+      </h1>
+      <div className="Nav-bar__container">
+        <ul
+          className="Nav-bar__items"
+          //  style={{ listStyle: "none" }}
+        >
+          <li className="Nav-bar__item">
             <NavLink activeClassName="selected" exact to={navLinkTitleOne}>
-              <button>{navLinkDisplayOne}</button>
+              {navLinkDisplayOne}
             </NavLink>
           </li>
-          <li>
+          <li className="Nav-bar__item">
             <NavLink activeClassName="selected" exact to={navLinkTitleTwo}>
-              <button>{navLinkDisplayTwo}</button>
+              {navLinkDisplayTwo}
             </NavLink>
           </li>
-          <li>
-            <NavLink activeClassName="selected" exact to={navLinkTitleThree}>
-              <button onClick={() => logoutButton()}>
-                {navLinkDisplayThree}
-              </button>
+          <li className="Nav-bar__item">
+            <NavLink
+              activeClassName="selected"
+              exact
+              to={navLinkTitleThree}
+              onClick={() => logoutButton()}
+            >
+              {navLinkDisplayThree}
             </NavLink>
           </li>
         </ul>

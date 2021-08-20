@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Redirect, Route } from "react-router-dom";
 
-import { AuthContext } from "../../context/AuthContext";
 import CheckAuthCookie from "../hooks/checkAuthCookie";
 
 function PrivateRoute({ component: Component, ...rest }) {
-  const { logUserIn, checkIfCookieExists } = CheckAuthCookie();
+  const { checkIfCookieExists } = CheckAuthCookie();
 
   return (
     <Route

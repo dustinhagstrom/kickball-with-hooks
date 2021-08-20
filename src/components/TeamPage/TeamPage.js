@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { Redirect } from "react-router";
 
-function TeamPage() {
+import { AuthContext } from "../../context/AuthContext";
+
+function TeamPage(props) {
   const baseURL =
     process.env.NODE_ENV === //react already has this node env variable established.
     "development"
@@ -13,6 +16,9 @@ function TeamPage() {
   const [teamId, setTeamId] = useState("");
   const [teamName, setTeamName] = useState("");
   const cookie = Cookies.get("jwt-cookie");
+  const {
+    state: { user },
+  } = useContext(AuthContext);
   function getTeamPics() {
     axios({
       method: "get",
@@ -37,6 +43,10 @@ function TeamPage() {
     let bytes = [].slice.call(new Uint8Array(buffer));
     bytes.forEach((b) => (binary += String.fromCharCode(b)));
     return window.btoa(binary);
+  }
+
+  if (!user.isOnATeam) {
+    props.history.push("/welcome");
   }
 
   return (

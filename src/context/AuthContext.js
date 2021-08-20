@@ -16,6 +16,8 @@ function reducer(state, action) {
         user: {
           email: action.user.email,
           username: action.user.username,
+          isTeamCaptain: action.user.isTeamCaptain,
+          isOnATeam: action.user.isOnATeam,
           isAuth: true,
         },
       };

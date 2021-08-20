@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import Cookies from "js-cookie";
 
 import Spinner from "../Spinner/Spinner";
 import CheckAuthCookie from "../hooks/checkAuthCookie";
 import userInputFields from "../hooks/userInputFields";
 import useFetchApi from "../hooks/useFetchApi";
 import { Redirect } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import jwtDecode from "jwt-decode";
 
 function Auth(props) {
   let isLoginRoute = props.match.path === "/login"; //if route path is login
@@ -12,6 +15,10 @@ function Auth(props) {
   let apiURL = isLoginRoute ? "/player/login" : "/player/signup";
 
   const { checkIfCookieExists } = CheckAuthCookie();
+
+  const {
+    state: { user },
+  } = useContext(AuthContext);
 
   const [
     {
@@ -99,13 +106,12 @@ function Auth(props) {
   }
 
   if (response === "user created") {
-    //clearing inputs not really necessary if I push route
     clearEmailInput();
-    // clearUsernameInput();
+    clearUsernameInput();
     clearPasswordInput();
-    // clearFirstNameInput();
-    // clearLastNameInput();
-    // clearConfirmPasswordInput();
+    clearFirstNameInput();
+    clearLastNameInput();
+    clearConfirmPasswordInput();
     pushToLogin();
   }
 
@@ -122,7 +128,20 @@ function Auth(props) {
   //can change this to protected route in future if desired
   if (checkIfCookieExists()) {
     console.log("here's a cookie");
-    return <Redirect to="/profile" />;
+    const cookie = Cookies.get("jwt-cookie");
+    const jwtDecodedCookie = jwtDecode(cookie);
+    return jwtDecodedCookie.isOnATeam ? (
+      <Redirect to="/profile" />
+    ) : (
+      <Redirect to="/welcome" />
+    );
+  }
+
+  async function welcomeBackUser() {
+    try {
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return (

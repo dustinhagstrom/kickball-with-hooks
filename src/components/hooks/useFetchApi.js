@@ -32,7 +32,7 @@ function useFetchApi(url) {
       credentials: "include", //this allows sending cookies cross-origin. "Request.credentials"
       ...{
         headers: {
-          authorization: null, //credentials are held within the cookie not auth headers
+          authorization: null, //not required b/c no cookie yet
         },
       },
     };
@@ -52,6 +52,8 @@ function useFetchApi(url) {
           user: {
             email: response.data.player.email,
             username: response.data.player.username,
+            isTeamCaptain: response.data.player.isTeamCaptain,
+            isOnATeam: response.data.player.isOnATeam,
           },
         });
       }

@@ -1,14 +1,17 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { AuthContext } from "../../context/AuthContext";
 
-import defaultPic from "./new_user.png";
-
-function Profile() {
+function Profile(props) {
   const [file, setFile] = useState(undefined);
   const [image, setImage] = useState(undefined);
   const [profileImg, setProfileImg] = useState(undefined);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  const {
+    state: { user },
+  } = useContext(AuthContext);
 
   const fileInput = useRef(null);
 
@@ -71,6 +74,7 @@ function Profile() {
   useEffect(() => {
     handleGetPic();
   }, []);
+
   return (
     <div>
       <form className="file-form" onSubmit={handleOnSubmit}>
