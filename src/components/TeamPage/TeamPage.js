@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import jwtDecode from "jwt-decode";
 import axios from "axios";
 import { Redirect } from "react-router";
 
@@ -16,6 +17,7 @@ function TeamPage(props) {
   const [teamId, setTeamId] = useState("");
   const [teamName, setTeamName] = useState("");
   const cookie = Cookies.get("jwt-cookie");
+  const jwtDecodedCookie = jwtDecode(cookie);
   const {
     state: { user },
   } = useContext(AuthContext);
@@ -27,6 +29,7 @@ function TeamPage(props) {
         authorization: `Bearer ${cookie}`,
       },
     }).then(function (res) {
+      console.log(res.data.payload);
       setTeamPicsArray(res.data.payload[1]); //pics with all data from schema
       setTeamPlayersArray(res.data.payload[0]); //players with all data from schema
       setTeamId(res.data.payload[0][0].team[0]); //team extracted from player schema
@@ -45,8 +48,10 @@ function TeamPage(props) {
     return window.btoa(binary);
   }
 
-  if (!user.isOnATeam) {
-    props.history.push("/welcome");
+  if (!jwtDecodedCookie.isOnATeam) {
+    if (!Cookies.get("team-cookie")) {
+      return <Redirect to="/welcome" />;
+    }
   }
 
   return (

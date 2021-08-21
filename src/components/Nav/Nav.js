@@ -2,9 +2,11 @@ import React, { useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Cookies from "js-cookie";
 import { withRouter } from "react-router-dom";
+import axios from "axios";
+
+import { TeamContext } from "../../context/TeamContext";
 import { AuthContext } from "../../context/AuthContext";
 import checkAuthCookie from "../hooks/checkAuthCookie";
-import axios from "axios";
 
 import "./Nav.css";
 
@@ -21,6 +23,11 @@ function Nav(props) {
     state: { user },
     dispatch,
   } = useContext(AuthContext);
+
+  const {
+    state: { teamObject },
+    dispatchTeam,
+  } = useContext(TeamContext);
 
   const userIsLoggedIn = user ? true : false;
   const navLinkTitleOne = userIsLoggedIn ? "/profile" : "/sign-up";
@@ -39,7 +46,11 @@ function Nav(props) {
       dispatch({
         type: "LOGOUT",
       });
+      dispatchTeam({
+        type: "RESET-TEAMS",
+      });
       Cookies.remove("jwt-cookie");
+      Cookies.remove("team-cookie");
       props.history.push("/login");
 
       let result = await axios.get("http://localhost:8080/api/player/logout");

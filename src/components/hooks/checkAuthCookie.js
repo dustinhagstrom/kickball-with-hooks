@@ -29,8 +29,6 @@ function CheckAuthCookie() {
         user: {
           email: jwtDecodedCookie.email,
           username: jwtDecodedCookie.username,
-          isTeamCaptain: jwtDecodedCookie.isTeamCaptain,
-          isOnATeam: jwtDecodedCookie.isOnATeam,
         },
       });
     }

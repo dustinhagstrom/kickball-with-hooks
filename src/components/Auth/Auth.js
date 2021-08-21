@@ -127,21 +127,15 @@ function Auth(props) {
 
   //can change this to protected route in future if desired
   if (checkIfCookieExists()) {
+    //bring in and decode the cookie b/c setting user state is asynch and takes longer to set and read then this takes to read.
     console.log("here's a cookie");
     const cookie = Cookies.get("jwt-cookie");
     const jwtDecodedCookie = jwtDecode(cookie);
     return jwtDecodedCookie.isOnATeam ? (
-      <Redirect to="/profile" />
+      <Redirect to="/team" />
     ) : (
       <Redirect to="/welcome" />
     );
-  }
-
-  async function welcomeBackUser() {
-    try {
-    } catch (e) {
-      console.log(e);
-    }
   }
 
   return (
