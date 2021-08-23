@@ -55,7 +55,7 @@ function TeamPage(props) {
   }
 
   return (
-    <div>
+    <div className="body">
       <div>
         <h1>Team Page</h1>
       </div>

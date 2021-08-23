@@ -1,6 +1,9 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+
+import "./Profile.css";
+
 import { AuthContext } from "../../context/AuthContext";
 
 function Profile(props) {
@@ -83,7 +86,7 @@ function Profile(props) {
   }, []);
 
   return (
-    <div>
+    <div className="body">
       <form className="file-form" onSubmit={handleOnSubmit}>
         <div
           style={{

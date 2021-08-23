@@ -1,11 +1,10 @@
 .auth-wrap {
     width: 800px;
-    height: 550px;
+    height: 600px;
     background: #741fdb8a;
-    /* background-color: rgba(179, 27, 27, 1); */
     box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.4); 
     position: absolute;
-    top: 0;
+    top: 30px;
     right: 0;
     left: 0;
     bottom: 0;
@@ -75,7 +74,7 @@ input:focus {
     justify-content: center;
     margin-top: 2%;
 }
-.button-div button {
+.button-div .form-button {
     padding: 10px;
     border: none;
     background-color: rgba(239, 243, 247, 0.8);
@@ -85,13 +84,13 @@ input:focus {
 }
 
 .button-div button:disabled {
-    background-color: grey;
+    background-color: rgb(74, 83, 136);
     color: rgba(239, 243, 247, 0.2)
 }
 .error-message {
     /* background-color: white; */
     color: rgb( 0, 0, 0);
-    margin-top: 15px;
+    margin-top: 5px;
     position: absolute;
 }
 

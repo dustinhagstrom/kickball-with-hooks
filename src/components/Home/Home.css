@@ -1,6 +1,63 @@
 .Home-body {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+}
+
+.background-image{
     background: url("../../photos/wind-up-kick.jpg");
-    height: 800px;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: -1;
+}
+
+.landing-hook {
+    position: fixed;
+    top: 35%;
+    left: 0;
+    color: #741fbd;
+    color: #4ce4e4;
+    border-right: solid black 2px;
+    border-top: solid black 2px;
+    /* border-left: solid black 2px; */
+    border-bottom: solid black 2px;
+    padding: 32px;
+    background: #741fdb;
+}
+
+.subscribe-input {
+    width: 75%;
+    padding: 5px;
+}
+
+.form-inline {
+    display: inline-block;
+}
+
+.subscribe-button {
+    background: black;
+    color: white;
+    font: inherit; /*force inherited values instead of browser default*/
+    /* border: 1.5px solid #0e4f1f; */
+    padding: 4px;
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.subscribe-button:hover {
+    border: solid black 4px;
+    padding: 2px;
+}
+
+.disclaimer {
+    font-style: italic;
+    font-size: x-small;
+    position: relative;
+    bottom: -20px;
 }
 
 .main-footer__links {
@@ -8,6 +65,9 @@
     text-align: center;
     background: black;
     margin: 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 .main-footer__link {

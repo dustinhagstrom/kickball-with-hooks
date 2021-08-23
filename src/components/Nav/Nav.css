@@ -4,6 +4,11 @@
     justify-content: space-between;
     padding: 0px 20px;
     border-bottom: solid black 2px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .Nav-bar__brand {

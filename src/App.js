@@ -7,6 +7,8 @@ import MainRouter from "./MainRouter";
 import AuthContextWrapper from "./context/AuthContext";
 import TeamContextWrapper from "./context/TeamContext";
 
+// import "./_base.css";
+
 function App() {
   return (
     <React.Suspense fallback={<Spinner />}>

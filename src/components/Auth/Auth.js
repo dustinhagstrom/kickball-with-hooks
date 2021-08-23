@@ -253,8 +253,9 @@ function Auth(props) {
               </div>
             )}
           </div>
-          <div>
+          <div className="button-div">
             <button
+              className="form-button"
               type="submit"
               disabled={
                 isLoginRoute
