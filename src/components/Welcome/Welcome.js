@@ -44,7 +44,6 @@ function Welcome(props) {
   }, []);
 
   function handleOnClickBasicPlan() {
-    console.log("click");
     let randomIndex = Math.floor(Math.random() * teamObject.teamArray.length);
     let randomTeam = teamObject.teamArray[randomIndex];
     axios({

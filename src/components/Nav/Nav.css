@@ -3,6 +3,12 @@
     display: flex;
     justify-content: space-between;
     padding: 0px 20px;
+    border-bottom: solid black 2px;
+}
+
+.Nav-bar__brand {
+    margin: 10px 0px 0px 0px;
+    vertical-align: middle;
 }
 
 .Nav-bar a {
@@ -19,6 +25,8 @@
     list-style: none;
     justify-content: space-between;
     padding-left: 0;
+    /* margin-top: 16px;
+    margin-bottom: 0px; */
 }
 
 .Nav-bar__items a:hover {
@@ -27,4 +35,8 @@
 
 .selected {
     text-decoration: #4ce4e4 underline;
+}
+
+.vert-align {
+    vertical-align: top;
 }

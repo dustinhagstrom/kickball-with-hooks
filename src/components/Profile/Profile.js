@@ -71,6 +71,13 @@ function Profile(props) {
     });
   }
 
+  // function deleteUser() {
+  //   axios({
+  //     method: "delete",
+  //     url:
+  //   })
+  // }
+
   useEffect(() => {
     handleGetPic();
   }, []);

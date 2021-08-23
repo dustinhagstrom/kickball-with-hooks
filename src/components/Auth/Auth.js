@@ -9,6 +9,8 @@ import { Redirect } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import jwtDecode from "jwt-decode";
 
+import "./Auth.css";
+
 function Auth(props) {
   let isLoginRoute = props.match.path === "/login"; //if route path is login
   let buttonName = isLoginRoute ? "Login" : "Sign up";
@@ -139,135 +141,137 @@ function Auth(props) {
   }
 
   return (
-    <div>
+    <div className="auth-wrap">
       {isLoginRoute ? (
-        <div>Sign in for kickball</div>
+        <div className="form-auth__title">Sign in for kickball</div>
       ) : (
-        <div>Sign up for kickball</div>
+        <div className="form-auth__title">Sign up for kickball</div>
       )}
       {/* {successMessageValue && successMessage()} */}
-      <form onSubmit={handleOnSubmit}>
-        <div>
-          {!isLoginRoute && (
-            <>
-              <div>
-                <label htmlFor="firstName">First Name</label>
-                <input
-                  type="text"
-                  id="firstName"
-                  name="firstName"
-                  placeholder="First name"
-                  value={firstName}
-                  onChange={firstNameOnChange}
-                  autoFocus
-                />
-                <div className="error-message">
-                  {isFirstNameError && firstNameErrorMessage}
+      <div className="form-wrap">
+        <form className="form-auth" onSubmit={handleOnSubmit}>
+          <div className="form-auth__inlines">
+            {!isLoginRoute && (
+              <>
+                <div className="form-auth__inline">
+                  <label htmlFor="firstName">First Name</label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    placeholder="First name"
+                    value={firstName}
+                    onChange={firstNameOnChange}
+                    autoFocus
+                  />
+                  <div className="error-message">
+                    {isFirstNameError && firstNameErrorMessage}
+                  </div>
                 </div>
-              </div>
-              <div>
-                <label htmlFor="lastName">Last Name</label>
-                <input
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  placeholder="Last name"
-                  value={lastName}
-                  onChange={lastNameOnChange}
-                />
-                <div className="error-message">
-                  {isLastNameError && lastNameErrorMessage}
+                <div className="form-auth__inline">
+                  <label htmlFor="lastName">Last Name</label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    placeholder="Last name"
+                    value={lastName}
+                    onChange={lastNameOnChange}
+                  />
+                  <div className="error-message">
+                    {isLastNameError && lastNameErrorMessage}
+                  </div>
                 </div>
-              </div>
-            </>
-          )}
-        </div>
-        <div>
-          <div>
-            <label>Email</label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              placeholder="Email"
-              value={email}
-              onChange={emailOnChange}
-            />
-            <div className="error-message">
-              {isEmailError && emailErrorMessage}
-            </div>
+              </>
+            )}
           </div>
-        </div>
-        <div>
-          {!isLoginRoute && (
-            <div>
-              <label>Username</label>
+          <div className="form-auth__blocks">
+            <div className="form-auth__block">
+              <label>Email</label>
               <input
                 type="text"
-                id="username"
-                name="username"
-                placeholder="Username"
-                value={username}
-                onChange={usernameOnChange}
+                id="email"
+                name="email"
+                placeholder="Email"
+                value={email}
+                onChange={emailOnChange}
               />
               <div className="error-message">
-                {isUsernameError && usernameErrorMessage}
+                {isEmailError && emailErrorMessage}
               </div>
-            </div>
-          )}
-        </div>
-        <div>
-          <div>
-            <label>Password</label>
-            <input
-              type="text"
-              id="password"
-              name="password"
-              placeholder="Password"
-              value={password}
-              onChange={passwordOnChange}
-            />
-            <div className="error-message">
-              {isPasswordError && passwordErrorMessage}
             </div>
           </div>
-        </div>
-        <div>
-          {!isLoginRoute && (
-            <div>
-              <label>Confirm Password</label>
+          <div className="form-auth__blocks">
+            {!isLoginRoute && (
+              <div className="form-auth__block">
+                <label>Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  placeholder="Username"
+                  value={username}
+                  onChange={usernameOnChange}
+                />
+                <div className="error-message">
+                  {isUsernameError && usernameErrorMessage}
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="form-auth__blocks">
+            <div className="form-auth__block">
+              <label>Password</label>
               <input
                 type="text"
-                id="confirmPassword"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChange={confirmPasswordOnChange}
+                id="password"
+                name="password"
+                placeholder="Password"
+                value={password}
+                onChange={passwordOnChange}
               />
               <div className="error-message">
-                {isConfirmPasswordError && confirmPasswordErrorMessage}
+                {isPasswordError && passwordErrorMessage}
               </div>
             </div>
-          )}
-        </div>
-        <div>
-          <button
-            type="submit"
-            disabled={
-              isLoginRoute
-                ? emailIsDisabled || passwordIsDisabled
-                : emailIsDisabled ||
-                  passwordIsDisabled ||
-                  confirmPasswordIsDisabled ||
-                  usernameIsDisabled ||
-                  firstNameIsDisabled ||
-                  lastNameIsDisabled
-            }
-          >
-            {buttonName}
-          </button>
-        </div>
-      </form>
+          </div>
+          <div className="form-auth__blocks">
+            {!isLoginRoute && (
+              <div className="form-auth__block">
+                <label>Confirm Password</label>
+                <input
+                  type="text"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={confirmPasswordOnChange}
+                />
+                <div className="error-message">
+                  {isConfirmPasswordError && confirmPasswordErrorMessage}
+                </div>
+              </div>
+            )}
+          </div>
+          <div>
+            <button
+              type="submit"
+              disabled={
+                isLoginRoute
+                  ? emailIsDisabled || passwordIsDisabled
+                  : emailIsDisabled ||
+                    passwordIsDisabled ||
+                    confirmPasswordIsDisabled ||
+                    usernameIsDisabled ||
+                    firstNameIsDisabled ||
+                    lastNameIsDisabled
+              }
+            >
+              {buttonName}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

@@ -62,7 +62,7 @@ function Nav(props) {
 
   return (
     <nav className="Nav-bar">
-      <h1 className="Nav-bar__brand">
+      <h1 className="Nav-bar__brand vert-align">
         <Link to="/">KickBallers™</Link>
       </h1>
       <div className="Nav-bar__container">
@@ -71,18 +71,29 @@ function Nav(props) {
           //  style={{ listStyle: "none" }}
         >
           <li className="Nav-bar__item">
-            <NavLink activeClassName="selected" exact to={navLinkTitleOne}>
+            <NavLink
+              activeClassName="selected"
+              className="vert-align"
+              exact
+              to={navLinkTitleOne}
+            >
               {navLinkDisplayOne}
             </NavLink>
           </li>
           <li className="Nav-bar__item">
-            <NavLink activeClassName="selected" exact to={navLinkTitleTwo}>
+            <NavLink
+              activeClassName="selected"
+              className="vert-align"
+              exact
+              to={navLinkTitleTwo}
+            >
               {navLinkDisplayTwo}
             </NavLink>
           </li>
           <li className="Nav-bar__item">
             <NavLink
               activeClassName="selected"
+              className="vert-align"
               exact
               to={navLinkTitleThree}
               onClick={() => logoutButton()}

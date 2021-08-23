@@ -1,0 +1,19 @@
+.Home-body {
+    background: url("../../photos/wind-up-kick.jpg");
+    height: 800px;
+}
+
+.main-footer__links {
+    list-style: none;
+    text-align: center;
+    background: black;
+    margin: 0;
+}
+
+.main-footer__link {
+    display: inline-block;
+    color: white;
+    margin: 0 16px;
+    padding: 16px;
+    cursor: pointer;
+}
