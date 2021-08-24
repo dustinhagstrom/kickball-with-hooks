@@ -5,6 +5,7 @@ export const AuthContext = createContext({}); //create a user auth context.
 //there is not an initial user
 const initialState = {
   user: null,
+  newPic: false,
 };
 
 //reducer function with switch statement for returning user.

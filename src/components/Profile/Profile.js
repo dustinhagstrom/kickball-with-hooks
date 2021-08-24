@@ -6,6 +6,7 @@ import "./Profile.css";
 
 import { AuthContext } from "../../context/AuthContext";
 import { TeamContext } from "../../context/TeamContext";
+import { PicContext } from "../../context/PicContext";
 
 function Profile(props) {
   const [file, setFile] = useState(undefined);
@@ -18,6 +19,11 @@ function Profile(props) {
     state: { user },
     dispatch,
   } = useContext(AuthContext);
+
+  const {
+    state: { picObject },
+    dispatchPic,
+  } = useContext(PicContext);
 
   const { dispatchTeam } = useContext(TeamContext);
 
@@ -40,6 +46,12 @@ function Profile(props) {
       .then((res) => {
         handleGetPic();
         console.log(res);
+        dispatchPic({
+          type: "SETPIC",
+          picObject: {
+            newPic: profileImg,
+          },
+        });
       })
       .catch((err) => {
         console.log(err);

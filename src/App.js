@@ -6,6 +6,7 @@ import Spinner from "./components/Spinner/Spinner";
 import MainRouter from "./MainRouter";
 import AuthContextWrapper from "./context/AuthContext";
 import TeamContextWrapper from "./context/TeamContext";
+import PicContextWrapper from "./context/PicContext";
 
 // import "./_base.css";
 
@@ -15,7 +16,9 @@ function App() {
       <Router>
         <AuthContextWrapper>
           <TeamContextWrapper>
-            <MainRouter />
+            <PicContextWrapper>
+              <MainRouter />
+            </PicContextWrapper>
           </TeamContextWrapper>
         </AuthContextWrapper>
       </Router>

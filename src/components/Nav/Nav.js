@@ -6,6 +6,7 @@ import axios from "axios";
 
 import { TeamContext } from "../../context/TeamContext";
 import { AuthContext } from "../../context/AuthContext";
+import { PicContext } from "../../context/PicContext";
 import checkAuthCookie from "../hooks/checkAuthCookie";
 
 import "./Nav.css";
@@ -30,6 +31,10 @@ function Nav(props) {
     state: { teamObject },
     dispatchTeam,
   } = useContext(TeamContext);
+
+  const {
+    state: { picObject },
+  } = useContext(PicContext);
 
   const cookie = Cookies.get("jwt-cookie");
 
@@ -81,17 +86,23 @@ function Nav(props) {
           authorization: `Bearer ${cookie}`,
         },
       }).then(function (res) {
+        console.log("1");
         let OurPic = arrayBufferToBase64(res.data.payload.img.data.data);
-        let OurPicSrc = `data:image/png;base64,${OurPic}`;
-        // setImage(undefined);
-        setNavProfileImg(OurPicSrc);
+        console.log(OurPic);
+        console.log("2");
+        let ourPicSrc = `data:image/png;base64,${OurPic}`;
+        console.log(ourPicSrc);
+        console.log("3");
+
+        setNavProfileImg(ourPicSrc);
+        console.log(navProfileImg);
       });
     }
   }
 
   useEffect(() => {
     handleGetPic();
-  }, []);
+  }, [picObject]);
 
   return (
     <nav className="Nav-bar">
