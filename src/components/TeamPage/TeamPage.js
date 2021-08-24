@@ -22,19 +22,21 @@ function TeamPage(props) {
     state: { user },
   } = useContext(AuthContext);
   function getTeamPics() {
-    axios({
-      method: "get",
-      url: `http://localhost:8080/api/pics/team-images`,
-      headers: {
-        authorization: `Bearer ${cookie}`,
-      },
-    }).then(function (res) {
-      console.log(res.data.payload);
-      setTeamPicsArray(res.data.payload[1]); //pics with all data from schema
-      setTeamPlayersArray(res.data.payload[0]); //players with all data from schema
-      setTeamId(res.data.payload[0][0].team[0]); //team extracted from player schema
-      setTeamName(res.data.payload[2]);
-    });
+    if (jwtDecodedCookie.isOnATeam || Cookies.get("team-cookie")) {
+      axios({
+        method: "get",
+        url: `http://localhost:8080/api/pics/team-images`,
+        headers: {
+          authorization: `Bearer ${cookie}`,
+        },
+      }).then(function (res) {
+        console.log(res.data.payload);
+        setTeamPicsArray(res.data.payload[1]); //pics with all data from schema
+        setTeamPlayersArray(res.data.payload[0]); //players with all data from schema
+        setTeamId(res.data.payload[0][0].team[0]); //team extracted from player schema
+        setTeamName(res.data.payload[2]);
+      });
+    }
   }
 
   useEffect(() => {
@@ -56,14 +58,14 @@ function TeamPage(props) {
 
   return (
     <div className="body">
-      <div>
+      <div className="team-page__title">
         <h1>Team Page</h1>
       </div>
       <div>
-        <div>
-          <div>{teamName}</div>
+        <div className="team-page">
+          <div className="team-page__name">{teamName}</div>
           <div>
-            <div>
+            <div className="team-page__roster-images">
               {teamPicsArray &&
                 teamPicsArray.map((pic, index) => {
                   let myPic = arrayBufferToBase64(pic.data.data);
@@ -79,7 +81,7 @@ function TeamPage(props) {
                   );
                 })}
             </div>
-            <div>
+            <div className="team-page__roster-names">
               {teamPlayersArray.map((player) => {
                 return (
                   <div
@@ -97,6 +99,9 @@ function TeamPage(props) {
                 );
               })}
               {/* insert pagination */}
+            </div>
+            <div className="team-page__remove-team">
+              <button>Quit Your Team</button>
             </div>
           </div>
         </div>

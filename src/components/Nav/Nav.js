@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Cookies from "js-cookie";
 import { withRouter } from "react-router-dom";
@@ -11,6 +11,8 @@ import checkAuthCookie from "../hooks/checkAuthCookie";
 import "./Nav.css";
 
 function Nav(props) {
+  const [navProfileImg, setNavProfileImg] = useState(undefined);
+
   const { logUserIn } = checkAuthCookie();
 
   useEffect(() => {
@@ -28,6 +30,8 @@ function Nav(props) {
     state: { teamObject },
     dispatchTeam,
   } = useContext(TeamContext);
+
+  const cookie = Cookies.get("jwt-cookie");
 
   const userIsLoggedIn = user ? true : false;
   const navLinkTitleOne = userIsLoggedIn ? "/profile" : "/sign-up";
@@ -60,16 +64,54 @@ function Nav(props) {
     }
   }
 
+  function arrayBufferToBase64(buffer) {
+    //convert the buffer to base64
+    let binary = "";
+    let bytes = [].slice.call(new Uint8Array(buffer));
+    bytes.forEach((b) => (binary += String.fromCharCode(b)));
+    return window.btoa(binary);
+  }
+  console.log(user);
+  function handleGetPic() {
+    if (cookie) {
+      axios({
+        method: "get",
+        url: `http://localhost:8080/api/pics/player-image`,
+        headers: {
+          authorization: `Bearer ${cookie}`,
+        },
+      }).then(function (res) {
+        let OurPic = arrayBufferToBase64(res.data.payload.img.data.data);
+        let OurPicSrc = `data:image/png;base64,${OurPic}`;
+        // setImage(undefined);
+        setNavProfileImg(OurPicSrc);
+      });
+    }
+  }
+
+  useEffect(() => {
+    handleGetPic();
+  }, []);
+
   return (
     <nav className="Nav-bar">
       <h1 className="Nav-bar__brand vert-align">
         <Link to="/">KickBallers™</Link>
       </h1>
       <div className="Nav-bar__container">
-        <ul
-          className="Nav-bar__items"
-          //  style={{ listStyle: "none" }}
-        >
+        <ul className="Nav-bar__items">
+          <li className="Nav-bar__item">
+            {userIsLoggedIn ? (
+              <img
+                id="Nav-bar__pic"
+                className="vert-align"
+                src={navProfileImg}
+                alt="profile-pic"
+              />
+            ) : (
+              ""
+            )}
+          </li>
           <li className="Nav-bar__item">
             <NavLink
               activeClassName="selected"

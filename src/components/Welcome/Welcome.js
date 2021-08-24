@@ -82,7 +82,7 @@ function Welcome(props) {
   return (
     <section className="disable-select body">
       <h1 className="section-title">How Do You Wanna Ball???</h1>
-      <div>
+      <div className="article-container">
         <article
           className="plan plan--highlighted"
           onClick={handleOnClickBasicPlan}

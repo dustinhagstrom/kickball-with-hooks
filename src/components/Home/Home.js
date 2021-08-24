@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
 import "./Home.css";
 
 function Home() {
-  function handleSubscribeSubmit() {}
+  const [emailSub, setEmailSub] = useState("");
+
+  function handleSubscribeSubmit() {
+    axios({
+      method: "post",
+      url: "http://localhost:8080/api/mail/send-practice-email",
+      data: {
+        emailInput: emailSub,
+      },
+    }).then(function (res) {
+      console.log(res);
+    });
+  }
+
+  function handleEmailSubscriptionInputOnChange(e) {
+    setEmailSub(e.target.value);
+  }
   return (
     <div>
       <section className="Home-body">
@@ -21,6 +38,7 @@ function Home() {
               <input
                 name="email-input"
                 className="subscribe-input form-inline"
+                onChange={handleEmailSubscriptionInputOnChange}
               ></input>
             </label>
             <div className="form-inline">

@@ -1,3 +1,49 @@
 .body {
     margin-top: 100px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.file-form__upload-container {
+    display: flex;
+}
+
+.custom-file-upload {
+    /* display: inline-block; */
+    background: black;
+    color: black;
+    padding: 5px;
+    border-radius: 2px;
+    margin-left: 50px;
+}
+
+.file-form__upload-button {
+    margin-left: -62px;
+}
+
+.profile-pictures {
+    display: flex;
+    text-align: center;
+}
+
+.profile-pictures__wrap {
+    width: 250px;
+}
+
+.profile-pictures-picture {
+    width: 100%;
+    aspect-ratio: 1/1;
+}
+
+.delete-profile {
+    width: 30%;
+    height: 50%;
+}
+.delete-profile ul{
+    list-style: none;
+    background: black;
+    color: white;
+}
+.delete-profile ul li{
+    padding: 20px;
 }

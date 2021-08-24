@@ -10,13 +10,13 @@ import Nav from "./components/Nav/Nav";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 // import NotFound from "./components/NotFound/NotFound";
 // import Auth from "./components/Auth/Auth";
-import Welcome from "./components/Welcome/Welcome";
+// import Welcome from "./components/Welcome/Welcome";
 
 const TeamPage = React.lazy(() => import("./components/TeamPage/TeamPage"));
 const Profile = React.lazy(() => import("./components/Profile/Profile"));
 const NotFound = React.lazy(() => import("./components/NotFound/NotFound"));
 const Auth = React.lazy(() => import("./components/Auth/Auth"));
-// const Welcome = React.lazy(() => import("./components/Welcome/Welcome"));
+const Welcome = React.lazy(() => import("./components/Welcome/Welcome"));
 
 function MainRouter() {
   return (
