@@ -80,7 +80,7 @@ function Welcome(props) {
     return <Redirect to="/profile" />;
   }
   return (
-    <section className="disable-select body">
+    <section className="disable-select welcome-body">
       <h1 className="section-title">How Do You Wanna Ball???</h1>
       <div className="article-container">
         <article

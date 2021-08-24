@@ -4,6 +4,8 @@ import jwtDecode from "jwt-decode";
 import axios from "axios";
 import { Redirect } from "react-router";
 
+import "./TeamPage.css";
+
 import { AuthContext } from "../../context/AuthContext";
 
 function TeamPage(props) {
@@ -50,6 +52,24 @@ function TeamPage(props) {
     return window.btoa(binary);
   }
 
+  function quitYourTeam() {
+    axios({
+      method: "put",
+      url: `http://localhost:8080/api/team/quit-team`,
+      headers: {
+        authorization: `Bearer ${cookie}`,
+      },
+      data: {
+        email: jwtDecodedCookie.email,
+        teamName: teamName,
+      },
+    }).then(function (res) {
+      console.log(res);
+      Cookies.remove("team-cookie");
+      props.history.push("/welcome");
+    });
+  }
+
   if (!jwtDecodedCookie.isOnATeam) {
     if (!Cookies.get("team-cookie")) {
       return <Redirect to="/welcome" />;
@@ -57,14 +77,12 @@ function TeamPage(props) {
   }
 
   return (
-    <div className="body">
-      <div className="team-page__title">
-        <h1>Team Page</h1>
-      </div>
+    <div className="team-body">
+      <h1 className="team-page__title">Team Page</h1>
       <div>
         <div className="team-page">
           <div className="team-page__name">{teamName}</div>
-          <div>
+          <div className="team-page__face-and-names">
             <div className="team-page__roster-images">
               {teamPicsArray &&
                 teamPicsArray.map((pic, index) => {
@@ -84,15 +102,7 @@ function TeamPage(props) {
             <div className="team-page__roster-names">
               {teamPlayersArray.map((player) => {
                 return (
-                  <div
-                    style={{
-                      height: "75px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                    key={player._id}
-                  >
+                  <div className="team-page__roster-name" key={player._id}>
                     <div>{player.firstName}</div>
                     <div>{player.lastName}</div>
                   </div>
@@ -101,13 +111,13 @@ function TeamPage(props) {
               {/* insert pagination */}
             </div>
             <div className="team-page__remove-team">
-              <button>Quit Your Team</button>
+              <button onClick={quitYourTeam}>Quit Your Team</button>
             </div>
           </div>
         </div>
         <div className="schedule-stats-container">
-          <div className="schedule">schedule</div>
-          <div className="stats">stats</div>
+          {/* <div className="schedule">schedule</div>
+          <div className="stats">stats</div> */}
         </div>
       </div>
     </div>

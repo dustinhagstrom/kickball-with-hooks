@@ -1,3 +1,36 @@
-.body {
+.team-body {
     margin-top: 100px;
+}
+
+.team-page__title {
+    text-align: center;
+}
+
+.team-page {
+    width: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team-page__face-and-names {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.team-page__roster-names {
+    width: 30%;
+    text-align: center;
+    justify-content: space-evenly;
+    height: 100%;
+}
+
+.team-page__roster-name {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
