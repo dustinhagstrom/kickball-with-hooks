@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Cookies from "js-cookie";
 import { withRouter } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
+import Axios from "../../Axios";
 
 import { TeamContext } from "../../context/TeamContext";
 import { AuthContext } from "../../context/AuthContext";
@@ -62,7 +63,7 @@ function Nav(props) {
       Cookies.remove("team-cookie");
       props.history.push("/login");
 
-      let result = await axios.get("http://localhost:8080/api/player/logout");
+      let result = await Axios.get("/player/logout");
       console.log(result); //this should be "Logged out!" and can style for pop up.
     } catch (e) {
       console.log(e);
@@ -79,9 +80,9 @@ function Nav(props) {
   console.log(user);
   function handleGetPic() {
     if (cookie) {
-      axios({
+      Axios({
         method: "get",
-        url: `http://localhost:8080/api/pics/player-image`,
+        url: "/pics/player-image",
         headers: {
           authorization: `Bearer ${cookie}`,
         },

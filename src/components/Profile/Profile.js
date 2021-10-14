@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 
 import "./Profile.css";
 
+import Axios from "../../Axios";
 import { AuthContext } from "../../context/AuthContext";
 import { TeamContext } from "../../context/TeamContext";
 import { PicContext } from "../../context/PicContext";
@@ -35,9 +36,9 @@ function Profile(props) {
     e.preventDefault();
     let data = new FormData();
     data.append("image", file);
-    axios({
+    Axios({
       method: "post",
-      url: "http://localhost:8080/api/pics/upload-player-image-to-db",
+      url: "/pics/upload-player-image-to-db",
       headers: {
         authorization: `Bearer ${cookie}`,
       },
@@ -75,9 +76,9 @@ function Profile(props) {
   }
 
   function handleGetPic() {
-    axios({
+    Axios({
       method: "get",
-      url: `http://localhost:8080/api/pics/player-image`,
+      url: "/pics/player-image",
       headers: {
         authorization: `Bearer ${cookie}`,
       },
@@ -98,9 +99,9 @@ function Profile(props) {
       "This action cannot be reversed and you won't be able to play!!!!"
     );
     if (result) {
-      axios({
+      Axios({
         method: "delete",
-        url: `http://localhost:8080/api/player/delete-player-by-id/${userID}`,
+        url: `/player/delete-player-by-id/${userID}`,
       }).then(function (res) {
         console.log(res.data.message);
         dispatch({

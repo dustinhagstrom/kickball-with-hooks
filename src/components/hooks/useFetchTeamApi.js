@@ -7,8 +7,8 @@ function useFetchApi(url) {
   const baseURL =
     process.env.NODE_ENV === //react already has this node env variable established.
     "development"
-      ? "http://localhost:8080/api"
-      : "DEPLOYED LOCATION";
+      ? "http://localhost:3001/api"
+      : "/api";
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);

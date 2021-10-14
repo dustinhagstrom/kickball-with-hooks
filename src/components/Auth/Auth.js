@@ -107,6 +107,8 @@ function Auth(props) {
     );
   }
 
+  // function handlesLoginReturnsCurrentCookie() {} //the goal is to export this func to get new cookie when anything in user context changes.
+
   if (response === "user created") {
     clearEmailInput();
     clearUsernameInput();

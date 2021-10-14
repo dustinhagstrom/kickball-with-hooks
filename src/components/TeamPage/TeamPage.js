@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
-import axios from "axios";
+// import axios from "axios";
+
 import { Redirect } from "react-router";
 
 import "./TeamPage.css";
 
+import Axios from "../../Axios";
 import { AuthContext } from "../../context/AuthContext";
 
 function TeamPage(props) {
@@ -13,7 +15,7 @@ function TeamPage(props) {
     process.env.NODE_ENV === //react already has this node env variable established.
     "development"
       ? "http://localhost:8080/api"
-      : "DEPLOYED LOCATION";
+      : "/api";
   const [teamPicsArray, setTeamPicsArray] = useState([]);
   const [teamPlayersArray, setTeamPlayersArray] = useState([]);
   const [teamId, setTeamId] = useState("");
@@ -25,9 +27,9 @@ function TeamPage(props) {
   } = useContext(AuthContext);
   function getTeamPics() {
     if (jwtDecodedCookie.isOnATeam || Cookies.get("team-cookie")) {
-      axios({
+      Axios({
         method: "get",
-        url: `http://localhost:8080/api/pics/team-images`,
+        url: "/pics/team-images",
         headers: {
           authorization: `Bearer ${cookie}`,
         },
@@ -53,9 +55,9 @@ function TeamPage(props) {
   }
 
   function quitYourTeam() {
-    axios({
+    Axios({
       method: "put",
-      url: `http://localhost:8080/api/team/quit-team`,
+      url: "/team/quit-team",
       headers: {
         authorization: `Bearer ${cookie}`,
       },

@@ -23,12 +23,14 @@ function CheckAuthCookie() {
       const cookie = Cookies.get("jwt-cookie"); //read the cookie named "jwt-cookie" and assign const name
       const jwtDecodedCookie = jwtDecode(cookie); //decode the cookie
       //the dispatch here makes an action obj
-      console.log(jwtDecodedCookie.isTeamCaptain);
+      console.log(jwtDecodedCookie.team);
       dispatch({
         type: "LOGIN",
         user: {
           email: jwtDecodedCookie.email,
           username: jwtDecodedCookie.username,
+          isTeamCaptain: jwtDecodedCookie.isTeamCaptain,
+          isOnATeam: jwtDecodedCookie.isOnATeam,
         },
       });
     }

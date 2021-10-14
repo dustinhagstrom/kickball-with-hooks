@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 
 import "./Welcome.css";
 
+import Axios from "../../Axios";
 import { AuthContext } from "../../context/AuthContext";
 import { TeamContext } from "../../context/TeamContext";
 
@@ -22,9 +23,9 @@ function Welcome(props) {
   const cookie = Cookies.get("jwt-cookie");
 
   function getTeamList() {
-    axios({
+    Axios({
       method: "get",
-      url: "http://localhost:8080/api/team/get-team-list",
+      url: "/team/get-team-list",
       headers: {
         authorization: `Bearer ${cookie}`,
       },
@@ -46,9 +47,9 @@ function Welcome(props) {
   function handleOnClickBasicPlan() {
     let randomIndex = Math.floor(Math.random() * teamObject.teamArray.length);
     let randomTeam = teamObject.teamArray[randomIndex];
-    axios({
+    Axios({
       method: "put",
-      url: "http://localhost:8080/api/team/join-team",
+      url: "/team/join-team",
       data: {
         teamName: randomTeam,
         email: user.email,
