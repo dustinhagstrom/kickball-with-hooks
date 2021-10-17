@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 function useFetchApi(url) {
   const baseURL =
-    process.env.REACT_APP_AXIOS === //react already has this node env variable established.
+    REACT_APP_AXIOS === //react already has this node env variable established.
     "development"
       ? "http://localhost:3001/api"
       : "/api";
