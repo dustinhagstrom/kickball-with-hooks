@@ -12,9 +12,9 @@ import { AuthContext } from "../../context/AuthContext";
 
 function TeamPage(props) {
   const baseURL =
-    REACT_APP_AXIOS === //react already has this node env variable established.
+    process.env.REACT_APP_AXIOS === //react already has this node env variable established.
     "development"
-      ? "http://localhost:8080/api"
+      ? "http://localhost:3001/api"
       : "/api";
   const [teamPicsArray, setTeamPicsArray] = useState([]);
   const [teamPlayersArray, setTeamPlayersArray] = useState([]);
